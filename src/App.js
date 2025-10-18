@@ -8,7 +8,7 @@
       if(typeof input !== 'string') throw new Error("[ERROR]")
 
       // 2. 커스텀 구분자가 있는지(단일 문자만 가능. 아닐 시 예외 처리) 확인. 있으면 변수에 할당 없으면 기본 구분자 할당
-      const validChars = new Set(["0","1","2","3","4","5","6","7","8","9",""])
+      const validChars = new Set(["0","1","2","3","4","5","6","7","8","9"," "])
       let delimiter = /[,:]/
 
       if(input.includes("//")) {
@@ -30,6 +30,7 @@
       const isInvalid = input.split("").some(char => !validChars.has(char))
       // isInvalid 하나로 음수가 아닌지, 소수인지 다 파악하고있는데 맞는지 이방식이
       // 예외에 따른 명확한 에러 메세지 바운딩을 해줄꺼면 이 방식은 틀렸음. 반면 모두 같게할꺼면 이게 간단함
+      // 테스트 코드에  await expect(app.run()).rejects.toThrow("[ERROR]"); 명시되어있어서 에러메시지 "[ERROR]") 고정. 테케 실패하면 불합격 간주한다함(테스트가 실패하면 점수가 0점이 되므로 제출하기 전에 반드시 확인한다.).
       if(isInvalid) throw new Error("[ERROR]")
 
       input = input.split(delimiter)

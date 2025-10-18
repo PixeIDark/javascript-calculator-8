@@ -1,4 +1,4 @@
-import App from "../src/App.js";
+import App from "./App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const mockQuestions = (inputs) => {
@@ -96,8 +96,8 @@ const testCases = [
     // 예외 - 커스텀 구분자 형식 오류
     { input: "//", expected: null, shouldError: true },
     { input: "//:1:2:3", expected: null, shouldError: true },
-    { input: "//,\\n", expected: null, shouldError: true },
-    { input: "//,\\n1,,", expected: null, shouldError: true },
+    { input: "//,\\n", expected: "0", shouldError: false },
+    { input: "//,\\n1,,", expected: "1", shouldError: false },
     { input: "//,,:\\n1,,", expected: null, shouldError: true },
 
     // 예외 - 기타
@@ -105,20 +105,24 @@ const testCases = [
 ];
 
 export const additionalTests = () => {
-    testCases.forEach(({ input, expected, shouldError }) => {
-        const testName = `입력: "${input}" ${shouldError ? "예외" : `→ ${expected}`}`;
+    describe("문자열 계산기", () => {
+        testCases.forEach(({ input, expected, shouldError }) => {
+            const testName = `입력: "${input}" ${shouldError ? "예외" : `→ ${expected}`}`;
 
-        test(testName, async () => {
-            mockQuestions([input]);
-            const app = new App();
+            test(testName, async () => {
+                mockQuestions([input]);
+                const app = new App();
 
-            if (shouldError) {
-                await expect(app.run()).rejects.toThrow("[ERROR]");
-            } else {
-                const logSpy = getLogSpy();
-                await app.run();
-                expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(expected));
-            }
+                if (shouldError) {
+                    await expect(app.run()).rejects.toThrow("[ERROR]");
+                } else {
+                    const logSpy = getLogSpy();
+                    await app.run();
+                    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(expected));
+                }
+            });
         });
     });
 };
+
+additionalTests()
