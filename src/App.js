@@ -27,7 +27,8 @@ class App {
     for(const str of input) {
       if(str === "") throw new Error("[ERROR]")
 
-      if(/^\d+(\.\d+)?$/.test(str) === false) throw new Error("[ERROR]")
+      const isValidNumber = /^\d+(\.\d+)?$/.test(str)
+      if(!isValidNumber) throw new Error("[ERROR]")
 
       const num = Number(str)
       sum += num
