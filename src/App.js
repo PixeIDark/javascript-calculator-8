@@ -8,7 +8,6 @@ class App {
     if(typeof input !== 'string') throw new Error("[ERROR]")
 
     // 2. 커스텀 구분자가 있는지(단일 문자만 가능. 아닐 시 예외 처리) 확인. 있으면 변수에 할당 없으면 기본 구분자 할당
-    const validChars = new Set(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let delimiter = /[,;]/
 
     if(input.includes("//")) {
@@ -17,10 +16,6 @@ class App {
 
       delimiter = customDelimiterMatch[1]
       input = input.substring(customDelimiterMatch[0].length)
-      validChars.add(delimiter)
-    } else {
-      validChars.add(",")
-      validChars.add(";")
     }
 
     // 3. 입력 구분자와 숫자를 제외한 나머지가 들어간 경우 예외 처리. 단, "."은 소수점으로 쓰인 경우 용인함(양수로 구성된 문자열 조건)
