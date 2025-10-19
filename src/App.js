@@ -19,11 +19,8 @@
         delimiter = customDelimiterMatch[1]
         input = input.substring(customDelimiterMatch[0].length)
         validChars.add(delimiter)
-      } else {
-        // 이부분 컹스한데 이게 최선인지??
-        validChars.add(",")
-        validChars.add(":")
-      }
+      } else validChars.add(",").add(":")
+
 
       // 3. 입력 구분자와 숫자를 제외한 나머지가 들어간 경우 예외 처리. 단, "."은 양수라 조건은 충족하는데 불가능하게 하는게 맞다 예시에 없잖아
       // 전체 input이 ""인경우는 0 반환하라고 명시, 그렇다면 "5, " 인경우 빈 공백에서 에러 트로우할지 0 반환할지
