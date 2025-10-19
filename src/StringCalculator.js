@@ -9,7 +9,7 @@ export class StringCalculator {
     if(this.input.includes("//")) {
       const customDelimiterMatch = this.input.match(/^\/\/(.)(?:\\n|\r?\n)/)
 
-      if(!customDelimiterMatch) throw new Error("[ERROR]")
+      if(!customDelimiterMatch) throw new Error("[ERROR] 커스텀 구분자 형식이 올바르지 않습니다.")
 
       this.delimiter = customDelimiterMatch[1]
       this.input = this.input.substring(customDelimiterMatch[0].length)
@@ -22,7 +22,7 @@ export class StringCalculator {
   validateInput() {
     const isInvalid = this.input.split("").some(char => !this.validChars.has(char))
 
-    if(isInvalid) throw new Error("[ERROR]")
+    if(isInvalid) throw new Error("[ERROR] 허용되지 않은 문자가 포함되어 있습니다.")
 
     return this
   }
